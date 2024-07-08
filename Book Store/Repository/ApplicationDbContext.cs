@@ -13,12 +13,7 @@ namespace Book_Store.Repository
         {
             base.OnModelCreating(builder);
 
-            // Additional configuration for BookUser if needed
-            builder.Entity<BookUser>()
-            .HasMany(u => u.Orders)
-            .WithOne(o => o.BookUser)
-            .HasForeignKey(o => o.BookUserId)
-            .IsRequired();
+         
         }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Book> Books { get; set; }

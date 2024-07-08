@@ -13,9 +13,11 @@ namespace Book_Store.Models.Models
 
         public List<BooksInOrder>? BooksInOrders { get; set; }
 
-        public int Quantity { get; set; }
+        public DateTime? Created { get; set; }
+
         public Order()
         {
+            Created=DateTime.Now;
             BooksInOrders = new List<BooksInOrder>();
         }
 

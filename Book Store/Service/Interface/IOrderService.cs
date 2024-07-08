@@ -7,12 +7,11 @@ using System.Threading.Tasks;
 
 namespace Book_Store.Service.Interface
 {
-    public interface IOrderService
-    {
-        public List<Order> GetOrdersForUser(string? userId);
-
-        public Order GetOrder(int id);
-
-        public Order ConfirmOrder(Order order);
-    }
+   
+        public interface IOrderService
+        {
+            List<Order> GetAllOrders();
+            Order GetDetailsForOrder(int id);
+        }
+    
 }

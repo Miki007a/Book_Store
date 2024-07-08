@@ -15,5 +15,7 @@ namespace Book_Store.Service.Interface
         public Author UpdateAuthor(Author Author);
         public BookAuthor CreateBook(BookAuthor bookAuthor);
         public Author DeleteAuthor(int id);
+        public Author DeleteBook(int id);
+       
     }
 }

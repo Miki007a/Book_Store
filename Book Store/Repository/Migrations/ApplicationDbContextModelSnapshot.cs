@@ -51,7 +51,15 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImageUrl")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -135,9 +143,6 @@ namespace Repository.Migrations
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ShoppingCartId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
@@ -155,9 +160,6 @@ namespace Repository.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("ShoppingCartId")
-                        .IsUnique();
-
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -172,12 +174,20 @@ namespace Repository.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<string>("BookUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("BookUserId");
 
                     b.HasIndex("OrderId");
 
@@ -219,11 +229,10 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BookUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                    b.Property<DateTime?>("Created")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -285,9 +294,13 @@ namespace Repository.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("BookUserId")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookUserId")
+                        .IsUnique()
+                        .HasFilter("[BookUserId] IS NOT NULL");
 
                     b.ToTable("ShoppingCarts");
                 });
@@ -444,17 +457,6 @@ namespace Repository.Migrations
                     b.Navigation("Book");
                 });
 
-            modelBuilder.Entity("Book_Store.Models.Models.BookUser", b =>
-                {
-                    b.HasOne("Book_Store.Models.Models.ShoppingCart", "ShoppingCart")
-                        .WithOne("BookUser")
-                        .HasForeignKey("Book_Store.Models.Models.BookUser", "ShoppingCartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ShoppingCart");
-                });
-
             modelBuilder.Entity("Book_Store.Models.Models.BooksInOrder", b =>
                 {
                     b.HasOne("Book_Store.Models.Models.Book", "Book")
@@ -462,6 +464,10 @@ namespace Repository.Migrations
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Book_Store.Models.Models.BookUser", null)
+                        .WithMany("Orders")
+                        .HasForeignKey("BookUserId");
 
                     b.HasOne("Book_Store.Models.Models.Order", "Order")
                         .WithMany("BooksInOrders")
@@ -496,10 +502,8 @@ namespace Repository.Migrations
             modelBuilder.Entity("Book_Store.Models.Models.Order", b =>
                 {
                     b.HasOne("Book_Store.Models.Models.BookUser", "BookUser")
-                        .WithMany("Orders")
-                        .HasForeignKey("BookUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .WithMany()
+                        .HasForeignKey("BookUserId");
 
                     b.Navigation("BookUser");
                 });
@@ -521,6 +525,15 @@ namespace Repository.Migrations
                     b.Navigation("Book");
 
                     b.Navigation("Publisher");
+                });
+
+            modelBuilder.Entity("Book_Store.Models.Models.ShoppingCart", b =>
+                {
+                    b.HasOne("Book_Store.Models.Models.BookUser", "BookUser")
+                        .WithOne("ShoppingCart")
+                        .HasForeignKey("Book_Store.Models.Models.ShoppingCart", "BookUserId");
+
+                    b.Navigation("BookUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -593,6 +606,9 @@ namespace Repository.Migrations
             modelBuilder.Entity("Book_Store.Models.Models.BookUser", b =>
                 {
                     b.Navigation("Orders");
+
+                    b.Navigation("ShoppingCart")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Book_Store.Models.Models.Order", b =>
@@ -607,8 +623,6 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Book_Store.Models.Models.ShoppingCart", b =>
                 {
-                    b.Navigation("BookUser");
-
                     b.Navigation("Books");
                 });
 #pragma warning restore 612, 618

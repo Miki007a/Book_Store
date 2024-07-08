@@ -9,10 +9,10 @@
 <style>
 
     .card {
-        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        background-color: rgba(255, 255, 255, 0.8); 
         border: none;
         margin-bottom: 20px;
-        position: relative; /* Ensure position relative for absolute positioning of content */
+        position: relative; 
     }
 
     .card-title {
@@ -21,7 +21,7 @@
     }
 
     .card-body {
-        padding: 15px; /* Adjust padding as needed */
+        padding: 15px; 
         text-align: center;
     }
 
@@ -31,7 +31,7 @@
         background-color: #964B00;
         border-color: #964B00;
         color: #fff;
-        width: 100%; /* Full width buttons */
+        width: 100%;
     }
 
         .btn-brown:hover,
@@ -44,7 +44,7 @@
 
     .limited-height {
         max-height: 300px;
-        width: auto; /* Maintain aspect ratio */
+        width: auto; 
     }
 </style>
 
@@ -71,9 +71,13 @@
                                 <h5 class="card-title">
                                     @Html.DisplayFor(modelItem => book.Book.Title)
                                 </h5>
+
                                 <p class="card-text">
                                     <strong>Price:</strong> @Html.DisplayFor(modelItem => book.Book.Price) Ден
                                 </p>
+                            <p class="card-text">
+                                <strong>Category:</strong> @Html.DisplayFor(modelItem => book.Book.Category) 
+                            </p>
                                 <p class="card-text">
                                     <strong>Description:</strong> @Html.DisplayFor(modelItem => book.Book.Description)
                                 </p>

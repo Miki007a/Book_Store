@@ -7,7 +7,6 @@
 }
 <style>
   
-    /*------- portfolio -------*/
     .project {
         margin: 15px 0;
     }
@@ -82,7 +81,6 @@
         font-size: 10px;
         line-height: 34px;
     }
-    /* facebook button */
     .btn-facebook, .btn-facebook:active, .btn-facebook:focus {
         color: #fff !important;
         background: #4e68a1;
@@ -117,7 +115,6 @@
             border: 2px solid #4e68a1;
         }
 
-    /* twitter button */
     .btn-twitter, .btn-twitter:active, .btn-twitter:focus {
         color: #fff !important;
         background: #65b5f2;
@@ -158,7 +155,6 @@
             border: 2px solid #65b5f2;
         }
 
-    /* google button */
     .btn-google, .btn-google:active, .btn-google:focus {
         color: #fff !important;
         background: #e05d4b;
@@ -193,7 +189,6 @@
             border: 2px solid #e05d4b;
         }
 
-    /* linkedin button */
     .btn-linkedin, .btn-linkedin:active, .btn-linkedin:focus {
         color: #fff !important;
         background: #2083bc;
@@ -228,7 +223,6 @@
             border: 2px solid #2083bc;
         }
 
-    /* pinterest button */
     .btn-pinterest, .btn-pinterest:active, .btn-pinterest:focus {
         color: #fff !important;
         background: #d2373b;
@@ -263,7 +257,6 @@
             border: 2px solid #d2373b;
         }
 
-    /* dribble button */
     .btn-dribbble, .btn-dribbble:active, .btn-dribbble:focus {
         color: #fff !important;
         background: #ec5f94;
@@ -298,7 +291,6 @@
             border: 2px solid #ec5f94;
         }
 
-    /* instagram button */
     .btn-instagram, .btn-instagram:active, .btn-instagram:focus {
         color: #fff !important;
         background: #4c5fd7;
@@ -333,7 +325,6 @@
             border: 2px solid #4c5fd7;
         }
 
-    /* youtube button */
     .btn-youtube, .btn-youtube:active, .btn-youtube:focus {
         color: #fff !important;
         background: #e52d27;
@@ -431,7 +422,7 @@
     .btn-brown {
         background-color: #964B00;
         border-color: #964B00;
-        color: #fff; /* Full width buttons */
+        color: #fff; 
     }
 
         .btn-brown:hover,
@@ -478,15 +469,15 @@
             <div class="project-info-box mt-0">
                 <h5>Author's Description</h5>
                 <p class="mb-0">@Model.Description</p>
-            </div><!-- / project-info-box -->
-
+            </div>
+         
             <div class="project-info-box">
                 <p><b>Name:</b> @Model.Name</p>
 
-            </div><!-- / project-info-box -->
+            </div>
 
             
-        </div><!-- / column -->
+        </div>
 
         <div class="col-md-7">
          
@@ -498,6 +489,7 @@
                             <th>Title</th>
                             <th>Price</th>
                             <th>Description</th>
+                            <th>Category</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -508,6 +500,8 @@
                                 <td>@Html.DisplayFor(modelItem => item.Book.Title)</td>
                                 <td>@Html.DisplayFor(modelItem => item.Book.Price) Ден</td>
                                 <td>@Html.DisplayFor(modelItem => item.Book.Description)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Book.Category)</td>
+
                                 <td class="m-auto px-auto d-flex justify-content-center">
                                     <a asp-action="DeleteBook" asp-route-id="@item.Id" class="btn btn-danger" style="margin-left:17%">Remove Book</a>
                                     <a asp-action="EditBook" asp-route-id="@item.Book.Id" class="btn btn-warning" style="margin-left:17%">Edit Book</a>

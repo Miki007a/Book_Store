@@ -15,6 +15,10 @@ namespace Book_Store.Service.Interface
         ShoppingCartDTO getShoppingCartDetails(string userId);
         Boolean deleteFromShoppingCart(string userId, int? Id);
 
+        Boolean orderBooks(string userId);
+
+
+
 
     }
 }

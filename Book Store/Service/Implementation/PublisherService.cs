@@ -15,10 +15,11 @@ namespace Book_Store.Service.Implementation
         private readonly IRepository<PublisherBooks> _PublishedBooksRepository;
         private readonly IRepository<Book> _BookRepository;
 
-        public PublisherService(IRepository<Publisher> repository, IRepository<Book> bookRepository)
+        public PublisherService(IRepository<Publisher> repository, IRepository<Book> bookRepository,IRepository<PublisherBooks> repository1)
         {
             _repository = repository;
             _BookRepository = bookRepository;
+            _PublishedBooksRepository = repository1;
         }
         public Publisher CreateNewPublisher(Publisher Publisher)
         {
@@ -51,6 +52,15 @@ namespace Book_Store.Service.Implementation
             publisherBooks.Publisher= publisher;
             publisher.PublisherBooks.Add(publisherBooks);
            return _PublishedBooksRepository.Insert(publisherBooks);
+        }
+
+        public Publisher UnpublishBook(int id)
+        {
+            var publisherBook = _PublishedBooksRepository.Get(id);
+            var publisher = _repository.Get(publisherBook.PublisherId);
+            publisher.PublisherBooks.Remove(publisherBook);
+            return _repository.Update(publisher);
+         
         }
 
         public Publisher UpdatePublisher(Publisher Publisher)

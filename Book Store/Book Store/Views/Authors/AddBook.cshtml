@@ -1,7 +1,7 @@
-﻿@model Book_Store.Models.DTO.BookAuthorDTO
+﻿
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-
+@model Book_Store.Models.DTO.BookAuthorDTO
 @{
     ViewData["Title"] = "AddBook";
     Layout = "~/Pages/Shared/_Layout.cshtml";
@@ -56,9 +56,15 @@
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
 
-            <div class="wrap-input1 validate-input" data-validate="Image URL is required">
+            <div class="wrap-input1 validate-input" data-validate="Category is required">
+                <label asp-for="Category" class="control-label"></label>
+                @Html.DropDownListFor(model => model.Category, (SelectList)ViewBag.Categories, "Select a category", new { @class = "input1 form-control" })
+                <span class="shadow-input1"></span>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="wrap-input1 validate-input" data-validate="ImageUrl is required">
                 <label asp-for="ImageUrl" class="control-label"></label>
-                <input class="input1 form-control" type="text" name="ImageUrl" placeholder="Your Image URL" asp-for="ImageUrl">
+                <input class="input1 form-control" name="ImageUrl" placeholder="Image" asp-for="ImageUrl"></input>
                 <span class="shadow-input1"></span>
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>

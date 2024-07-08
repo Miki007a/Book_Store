@@ -12,30 +12,19 @@ namespace Book_Store.Service.Implementation
 {
     public class OrderService : IOrderService
     {
-        private readonly IRepository<Order> _orderRepository;   
-        private readonly IUserRepository _userRepository;
-
-        public OrderService(IRepository<Order> repository,IUserRepository userRepository)
+        private readonly IRepository<Order> repository;
+        public OrderService(IRepository<Order> orderRepository)
         {
-            this._orderRepository = repository;
-            this._userRepository = userRepository;
+            repository = orderRepository;
+        }
+        public List<Order> GetAllOrders()
+        {
+            return repository.GetAll().ToList();
         }
 
-        public Order ConfirmOrder(Order order)
+        public Order GetDetailsForOrder(int id)
         {
-            return _orderRepository.Delete(order);
-        }
-
-        public Order GetOrder(int id)
-        {
-            return _orderRepository.Get(id);
-        }
-
-        public List<Order> GetOrdersForUser(string? userId)
-        {
-
-            var loggedInUser = _userRepository.Get(userId);
-            return loggedInUser.Orders.ToList();
+            return repository.Get(id);
         }
     }
 }

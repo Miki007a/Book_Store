@@ -16,49 +16,16 @@ namespace Book_Store.Service.Implementation
         private readonly IRepository<Book> _repository;
         private readonly IUserRepository _userRepository;
         private readonly IRepository<Order> _orderRepository;
-        public BookService(IRepository<Book> repository, IUserRepository userRepository, IRepository<Order> _orderRepository)
+        private readonly IRepository<PublisherBooks> _publisherBooksRepository;
+        public BookService(IRepository<Book> repository, IUserRepository userRepository, IRepository<Order> _orderRepository, IRepository<PublisherBooks> publisherBooksRepository)
         {
             _repository = repository;
             _userRepository = userRepository;
             this._orderRepository = _orderRepository;
+            _publisherBooksRepository = publisherBooksRepository;
         }
 
-        public Order AddBookInOrder(BookInOrderDTO book, string id)
-        {
-            var loggedInUser = _userRepository.Get(id);
-            Book book1 = _repository.Get(book.BookId);
 
-            Order order= CreateNewOrder(id,book.Quantity);
-
-            BooksInOrder books = new BooksInOrder
-            {
-                BookId = book.BookId,
-                Book = book1,
-                Order = order,
-                OrderId = order.Id,
-                
-
-            };
-
-            order.BooksInOrders.Add(books);
-
-            loggedInUser.Orders.Add(order);
-
-            return _orderRepository.Update(order);
-          
-
-        }
-
-        public Order CreateNewOrder(string userId,int Quantity)
-        {
-            return _orderRepository.Insert(new Order
-            {
-                BookUserId = userId,
-                BookUser = _userRepository.Get(userId),
-                Quantity = Quantity
-
-            });
-        }
 
         public Book CreateNewBook(Book book)
         {
@@ -82,6 +49,8 @@ namespace Book_Store.Service.Implementation
         {
             return _repository.GetAll().ToList();
         }
+
+   
 
         public Book UpdateBook(Book book)
         {

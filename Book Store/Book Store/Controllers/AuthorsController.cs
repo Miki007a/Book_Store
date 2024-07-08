@@ -149,12 +149,17 @@ namespace Book_Store.Controllers
             AuthorService.GetAuthorById(id);
             BookAuthorDTO AuthorBooks = new BookAuthorDTO();
             AuthorBooks.AuthorId = id;
+            List<string> categories = new List<string>()
+            {
+                "Horror","Comedy","Romance","Action","Thriller"
+            };
+            ViewBag.Categories = new SelectList(categories);
             return View(AuthorBooks);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddBook([Bind("Price,Title,Description,AuthorId,ImageUrl")] BookAuthorDTO BookAuthor)
+        public IActionResult AddBook([Bind("Price,Title,Description,AuthorId,ImageUrl,Category")] BookAuthorDTO BookAuthor)
         {
             Book book = new Book();
             if (ModelState.IsValid)
@@ -164,6 +169,7 @@ namespace Book_Store.Controllers
                 book.Description=BookAuthor.Description;
                 book.Price=BookAuthor.Price;
                 book.ImageUrl=BookAuthor.ImageUrl;
+                book.Category=BookAuthor.Category;
                 Book CreatedBook=  bookService.CreateNewBook(book);
                 Author author = AuthorService.GetAuthorById(BookAuthor.AuthorId);
                 BookAuthor bookAuthor = new BookAuthor
@@ -191,6 +197,11 @@ namespace Book_Store.Controllers
             {
                 return NotFound();
             }
+            List<string> categories = new List<string>()
+            {
+                "Horrror","Comedy","Romance","Action","Thriller"
+            };
+            ViewBag.Categories = new SelectList(categories);
             return View(book);
         }
 
@@ -199,7 +210,7 @@ namespace Book_Store.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditBook(int id, [Bind("Price,Title,Description,Id,ImageUrl")] Book book)
+        public IActionResult EditBook(int id, [Bind("Price,Title,Description,Id,ImageUrl,Category")] Book book)
         {
             if (id != book.Id)
             {

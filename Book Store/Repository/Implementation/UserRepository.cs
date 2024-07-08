@@ -31,8 +31,10 @@ namespace Book_Store.Repository.Implementation
             var strGuid = id.ToString();
             return entities
                 .Include("Orders")
-                .Include("Orders.BooksInOrders")
-                .Include("Orders.BooksInOrders.Book")
+                .Include("Orders.Book")
+                .Include("ShoppingCart")
+                .Include("ShoppingCart.Books")
+                .Include("ShoppingCart.Books.Book")
                 .First(s => s.Id == strGuid);
         }
         public void Insert(BookUser entity)

@@ -1,0 +1,65 @@
+﻿@model List<Book_Store.Models.Models.Order>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+    var totalprice = 0;
+}
+<style>
+    .btn-brown {
+        background-color: #964B00;
+        border-color: #964B00;
+        color: #fff;
+        width: 100%; 
+    }
+
+        .btn-brown:hover,
+        .btn-brown:focus,
+        .btn-brown:active {
+            background-color: #A56F00;
+            border-color: #A56F00;
+            color: #fff;
+        }
+
+</style>
+    <div class="row">
+        <a asp-action="ExportOrders" class="btn btn-warning">Export All Orders</a>
+    </div>
+
+    <div style="background-color:rgb(255,255,255,0.8);border-radius:3px" class="row m-4">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Customer Name</th>
+                    <th scope="col">Number Of Books</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Count().Equals(0))
+                {
+                    <tr>
+                        <td colspan="5">No active orders</td>
+                    </tr>
+                }
+                else
+                {
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var item = Model[i];
+
+                        <tr>
+                            <th scope="row">@(i + 1)</th>
+                            <td>@item.BookUser.UserName</td>
+                            <td>@item.BooksInOrders.Count</td>
+                            <td><a asp-action="Details" asp-route-Id="@item.Id" class="btn btn-brown">Details</a></td>
+                            <td><a asp-action="CreateInvoice" asp-route-Id="@item.Id" class="btn btn-primary">Create Invoice</a></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

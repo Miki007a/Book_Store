@@ -14,6 +14,7 @@ namespace Book_Store.Service.Interface
         public Publisher CreateNewPublisher(Publisher Publisher);
         public Publisher UpdatePublisher(Publisher Publisher);
         public Publisher DeletePublisher(int id);
+        public Publisher UnpublishBook(int id);
         public PublisherBooks PublishBook(PublisherBooks publisherBooks);
 
     }

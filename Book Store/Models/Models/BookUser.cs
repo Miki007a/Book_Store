@@ -12,16 +12,14 @@ namespace Book_Store.Models.Models
 {
    public class BookUser : IdentityUser
     {
-        [ForeignKey("ShoppingCart")]
-        public int ShoppingCartId { get; set; }
+     
 
         public ShoppingCart ShoppingCart { get; set; }
 
-        public List<Order> Orders { get; set; }
+        public List<BooksInOrder> Orders { get; set; }
 
         public BookUser() {
-            Orders = new List<Order>(); 
-            ShoppingCart = new ShoppingCart();
+            Orders = new List<BooksInOrder>(); 
         }
     }
 }

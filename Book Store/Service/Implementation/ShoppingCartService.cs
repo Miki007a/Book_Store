@@ -65,7 +65,7 @@ namespace Book_Store.Service.Implementation
                 var loggedInUser = _userRepository.Get(userId);
 
 
-                var Book_to_delete = loggedInUser?.ShoppingCart?.Books.First(z => z.BookId == Id);
+                var Book_to_delete = loggedInUser?.ShoppingCart?.Books.First(z => z.Id == Id);
 
                 loggedInUser?.ShoppingCart?.Books?.Remove(Book_to_delete);
 
@@ -126,7 +126,58 @@ namespace Book_Store.Service.Implementation
             };
         }
 
-     
+        public bool orderBooks(string userId)
+        {
+            if (userId != null && !userId.IsNullOrEmpty())
+            {
+                var loggedInUser = _userRepository.Get(userId);
+
+                var userCart = loggedInUser?.ShoppingCart;
+
+
+                var userOrder = new Order
+                {
+                    
+                    BookUserId = userId,
+                    BookUser = loggedInUser
+                };
+
+                _orderRepository.Insert(userOrder);
+
+                var booksInOrders = userCart?.Books.Select(z => new BooksInOrder
+                {
+                    Order = userOrder,
+                    OrderId = userOrder.Id,
+                    BookId = z.BookId,
+                    Book = z.Book,
+                    Quantity = z.Quantity
+                }).ToList();
+
+                var totalPrice = 0.0;
+
+                for (int i = 1; i <= booksInOrders.Count(); i++)
+                {
+                    var currentItem = booksInOrders[i - 1];
+                    totalPrice += currentItem.Quantity * currentItem.Book.Price;
+                    loggedInUser.Orders.Add(currentItem);
+
+
+                }
+               
+             
+                _BookInOrderRepository.InsertMany(booksInOrders);
+
+                userCart?.Books.Clear();
+
+                _shoppingCartRepository.Update(userCart);
+
+          
+
+                return true;
+            }
+            return false;
+        }
+
     }
 
 }

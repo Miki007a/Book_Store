@@ -10,8 +10,8 @@ namespace Book_Store.Models.Models
     public class ShoppingCart : BaseEntity
     {
 
-         
-            public string? BookUserId { get; set; }
+        [ForeignKey("BookUser")]
+        public string? BookUserId { get; set; }
             public BookUser? BookUser { get; set; }
             public virtual List<BooksInShoppingCart>? Books { get; set; }
             public ShoppingCart() { 

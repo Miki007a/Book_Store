@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Book_Store.Service.Implementation
 {
-    public class AuthorService:IAuthorService
+    public class AuthorService : IAuthorService
     {
         private readonly IRepository<Author> _repository;
 
@@ -44,7 +44,24 @@ namespace Book_Store.Service.Implementation
         public Author DeleteAuthor(int id)
         {
             var Author = _repository.Get(id);
+
+            List<Book> books = new List<Book>();
+            foreach(var bookauthor in Author.BookAuthors)
+            {
+                books.Add(bookauthor.Book);
+            }
+            repositoryBook.RemoveMany(books);
             return _repository.Delete(Author);
+        }
+
+        public Author DeleteBook(int id)
+        {
+            var BookAuthor = _bookAuthorRepository.Get(id);
+            var book= repositoryBook.Get(BookAuthor.BookId);
+            var author = _repository.Get(BookAuthor.AuthorId);
+            author.BookAuthors.Remove(BookAuthor);
+            repositoryBook.Delete(book);
+            return _repository.Update(author);
         }
 
         public Author GetAuthorById(int? id)

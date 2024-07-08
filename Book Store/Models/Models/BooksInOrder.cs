@@ -16,5 +16,7 @@ namespace Book_Store.Models.Models
 
         public Order? Order { get; set; }
 
+        public int Quantity { get; set; }
+
     }
 }

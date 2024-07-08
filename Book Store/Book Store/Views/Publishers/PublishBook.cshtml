@@ -72,7 +72,7 @@ body{
     .btn-brown {
         background-color: #964B00;
         border-color: #964B00;
-        color: #fff; /* Full width buttons */
+        color: #fff; 
     }
 
         .btn-brown:hover,
@@ -85,7 +85,7 @@ body{
 
     .limited-height {
         max-height: 250px;
-        width: auto; /* Maintain aspect ratio */
+        width: auto; 
     }
 </style>
 
@@ -127,6 +127,9 @@ body{
                             </h6>
                             <h6 class="h6">
                                 <strong>Price:</strong> @book.Book.Price Ден
+                            </h6>
+                            <h6 class="h6">
+                                <strong>Category:</strong> @book.Book.Category
                             </h6>
                             <form asp-action="PublishBook">
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>

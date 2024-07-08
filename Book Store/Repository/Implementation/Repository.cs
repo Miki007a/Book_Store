@@ -31,6 +31,35 @@ namespace Book_Store.Repository.Implementation
                     .Include("PublisherBooks.Publisher")
                     .AsEnumerable();
             }
+            else if (typeof(T).IsAssignableFrom(typeof(Author)))
+            {
+                return entities
+                    .Include("BookAuthors")
+                    .Include("BookAuthors.Book")
+                    .AsEnumerable();
+
+            }
+
+            else if (typeof(T).IsAssignableFrom(typeof(Publisher)))
+            {
+                return entities
+                    .Include("PublisherBooks")
+                    .Include("PublisherBooks.Book")
+                    .Include("PublisherBooks.Book.BookAuthors")
+                     .Include("PublisherBooks.Book.BookAuthors.Author")
+                 
+                      .AsEnumerable();
+
+            }
+            else if (typeof(T).IsAssignableFrom(typeof(Order)))
+            {
+                return entities
+                    .Include("BookUser")
+                    .Include("BooksInOrders")
+                    .Include("BooksInOrders.Book")
+              .AsEnumerable();
+
+            }
             else
             {
                 return entities.AsEnumerable();
@@ -47,12 +76,30 @@ namespace Book_Store.Repository.Implementation
                     .First(s => s.Id == id);
 
             }
-           else if (typeof(T).IsAssignableFrom(typeof(Order)))
+            else if (typeof(T).IsAssignableFrom(typeof(Book)))
             {
                 return entities
+                    .Include("BookAuthors")
+                    .Include("BookAuthors.Author")
+                    .Include("PublisherBooks")
+                    .Include("PublisherBooks.Publisher")
+                    .First(s => s.Id == id);
+
+            }
+            else if (typeof(T).IsAssignableFrom(typeof(Order)))
+            {
+                return entities
+                    .Include("BookUser")
                     .Include("BooksInOrders")
                     .Include("BooksInOrders.Book")
-                    .Include("BookUser")
+                    .First(s => s.Id == id);
+
+            }
+            else if (typeof(T).IsAssignableFrom(typeof(Publisher)))
+            {
+                return entities
+                    .Include("PublisherBooks")
+                    .Include("PublisherBooks.Book")
                     .First(s => s.Id == id);
 
             }
@@ -102,6 +149,16 @@ namespace Book_Store.Repository.Implementation
                 throw new ArgumentNullException("entities");
             }
             entities.AddRange(entities);
+            context.SaveChanges();
+            return entities;
+        }
+        public List<T> RemoveMany(List<T> entities)
+        {
+            if (entities == null)
+            {
+                throw new ArgumentNullException("entities");
+            }
+            context.Set<T>().RemoveRange(entities);
             context.SaveChanges();
             return entities;
         }
