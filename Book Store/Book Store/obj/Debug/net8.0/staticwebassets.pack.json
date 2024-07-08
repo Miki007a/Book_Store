@@ -13,8 +13,84 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\images\\AddToCart.png",
+      "PackagePath": "staticwebassets\\images\\AddToCart.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\images\\Author.png",
+      "PackagePath": "staticwebassets\\images\\Author.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\images\\CoolBook.jpg",
+      "PackagePath": "staticwebassets\\images\\CoolBook.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\images\\Publisher.png",
+      "PackagePath": "staticwebassets\\images\\Publisher.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\images\\Surfer.png",
+      "PackagePath": "staticwebassets\\images\\Surfer.png"
+    },
+    {
       "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Book.jpg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Book.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Book.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Book.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Book1.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Book1.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Book2.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Book2.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Bricked.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Bricked.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Library.jpg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Library.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Palette.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Palette.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Pattern.jpg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Pattern.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Pattern2.jpg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Pattern2.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Pattern3.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Pattern3.png"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Pattern4.jpg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Pattern4.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Shelf.jpeg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Shelf.jpeg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Vines.jpg",
+      "PackagePath": "staticwebassets\\lib\\Images\\Vines.jpg"
+    },
+    {
+      "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\Images\\Vines.png",
+      "PackagePath": "staticwebassets\\lib\\Images\\Vines.png"
     },
     {
       "Id": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\wwwroot\\lib\\bootstrap\\LICENSE",

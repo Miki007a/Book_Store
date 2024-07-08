@@ -7,12 +7,104 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Book_Store.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            background-image: url('/lib/Images/Pattern3.png');
+            background-size: contain;
+            background-attachment: fixed;
+            color: #333;
+        }
+
+        .navbar {
+            background-color: rgba(111, 78, 55, 0.9); /* Semi-transparent brown */
+        }
+
+        .navbar-brand, .nav-link {
+            color: #fff !important;
+        }
+
+        .footer {
+            background-color: #6f4e37;
+            color: #fff;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .nav-link {
+            position: relative;
+            padding-left: 2rem; /* Keep existing padding */
+        }
+
+            .nav-link::before {
+                content: "";
+                font-family: "Font Awesome 5 Free"; /* Ensure this matches your Font Awesome version */
+                font-weight: 900;
+                position: absolute;
+                left: -0.8rem; /* Adjusted slightly to reduce overlap */
+                bottom:0.65rem;
+                font-size: 0.75rem; /* Reduced font size to decrease icon size */
+            
+            }
+
+
+            .nav-link[href*="Authors"]::before {
+                content: "\f007";
+            }
+
+            .nav-link[href*="Publishers"]::before {
+                content: "\f02c";
+            }
+
+            .nav-link[href*="Books"]::before {
+                content: "\f02d";
+            }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .navbar-nav .nav-item + .nav-item {
+            margin-left: 1rem;
+        }
+
+        .navbar-toggler-icon {
+            color: #fff;
+        }
+
+        .hidden-body {
+            display: none;
+        }
+
+        .text-white {
+            color: #ffffff !important; /* Ensures the text stays white */
+        }
+
+        .carousel-container {
+            width: 100%; /* Make the carousel take up the full width */
+        }
+
+        .carousel-item img {
+            object-fit: cover; /* Ensure the image covers the entire area of the carousel item */
+            min-height: 300px; /* Set a minimum height for the carousel items */
+        }
+
+        .navbar {
+            background-image: url('/lib/Images/Pattern4.jpg'); /* Path to your image */
+            background-repeat: repeat-x; /* Repeat horizontally */
+            background-position: center; /* Center the background image */
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-page="/Index">Book_Store</a>
+                <a class="navbar-brand" asp-area="" asp-page="/Index">Book Store</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,10 +112,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-page="/Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                            <a class="nav-link" asp-action="Index" asp-controller="Authors">Authors</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Publishers">Publishers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Books">Books</a>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />
@@ -33,15 +131,13 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            
+            
+                @RenderBody()
+           
+          
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2024 - Book_Store - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

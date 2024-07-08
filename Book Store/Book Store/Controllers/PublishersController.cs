@@ -9,6 +9,9 @@ using Book_Store.Models.Models;
 using Book_Store.Repository;
 using Book_Store.Service.Interface;
 using Book_Store.Service.Implementation;
+using Book_Store.Models.DTO;
+using System.Security.Policy;
+using Publisher = Book_Store.Models.Models.Publisher;
 
 namespace Book_Store.Controllers
 {
@@ -16,10 +19,13 @@ namespace Book_Store.Controllers
     {
         private readonly IPublisherService publisherService;
         private readonly IBookService bookService;
-        public PublishersController(IPublisherService publisherService,IBookService bookService)
+        private readonly IAuthorService authorService;
+
+        public PublishersController(IPublisherService publisherService,IBookService bookService,IAuthorService author)
         {
             this.publisherService = publisherService;
             this.bookService = bookService;
+            this.authorService = author;
         }
 
         // GET: Publishers
@@ -41,6 +47,12 @@ namespace Book_Store.Controllers
             {
                 return NotFound();
             }
+            List<Author> authors = authorService.GetAuthors().ToList();
+            AddAuthorBookToPublisherDTO addAuthorBookToPublisherDTO = new AddAuthorBookToPublisherDTO
+            {
+                Publisher = publisher,
+                Authors = authors
+            };
 
             return View(publisher);
         }
@@ -48,7 +60,8 @@ namespace Book_Store.Controllers
         // GET: Publishers/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Publisher();
+            return View(model);
         }
 
         // POST: Publishers/Create
@@ -117,26 +130,7 @@ namespace Book_Store.Controllers
         }
 
         // GET: Publishers/Delete/5
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var publisher = publisherService.GetPublisherById(id);
-            if (publisher == null)
-            {
-                return NotFound();
-            }
-
-            return View(publisher);
-        }
-
-        // POST: Publishers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult Delete(int id)
         {
             var publisher = publisherService.GetPublisherById(id);
             if (publisher != null)
@@ -144,8 +138,10 @@ namespace Book_Store.Controllers
                 publisherService.DeletePublisher(id);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index");
         }
+
+     
 
         private bool PublisherExists(int id)
         {
@@ -156,15 +152,19 @@ namespace Book_Store.Controllers
             return false;
         }
 
-        private IActionResult PublishBook(int id)
+        public IActionResult PublishBook(int id)
         {
-            publisherService.GetPublisherById(id);
-            PublisherBooks publisherBooks = new PublisherBooks();
-            publisherBooks.PublisherId= id;
-            publisherBooks.Publisher = publisherService.GetPublisherById(id);
-            List<Book> books=bookService.GetBooks();
-            ViewBag.Books = new SelectList(books, "Id", "Title");
-            return View(publisherBooks);
+           Publisher publisher=publisherService.GetPublisherById(id);
+            
+          
+           
+            List<Author> authors = authorService.GetAuthors().ToList();
+            AddAuthorBookToPublisherDTO addAuthorBookToPublisherDTO = new AddAuthorBookToPublisherDTO
+            {
+                Publisher = publisher,
+                Authors = authors
+            };
+            return View(addAuthorBookToPublisherDTO);
         }
 
         [HttpPost]
@@ -175,9 +175,23 @@ namespace Book_Store.Controllers
             {
                 publisherService.PublishBook(publisherBooks);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new {id=publisherBooks.PublisherId});
             }
             return View(publisherBooks);
         }
+
+
+        public IActionResult DeleteBook(int id)
+        {
+            
+              var publisher=  publisherService.UnpublishBook(id);
+            
+
+
+            return RedirectToAction(nameof(Details),new {id = publisher.Id});
+        }
+
+   
+    
     }
 }

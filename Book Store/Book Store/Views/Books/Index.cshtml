@@ -1,49 +1,104 @@
 ﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
-@model IEnumerable<Book_Store.Models.Models.Book>
+@model IEnumerable<Book_Store.Models.Models.Publisher>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<style>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    .card {
+        background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+        border: none;
+        margin-bottom: 20px;
+        position: relative; /* Ensure position relative for absolute positioning of content */
+    }
+
+    .card-title {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .card-body {
+        padding: 15px; /* Adjust padding as needed */
+        text-align: center;
+    }
+
+  
+
+    .btn-brown {
+        background-color: #964B00;
+        border-color: #964B00;
+        color: #fff;
+        width: 100%; /* Full width buttons */
+    }
+
+        .btn-brown:hover,
+        .btn-brown:focus,
+        .btn-brown:active {
+            background-color: #A56F00;
+            border-color: #A56F00;
+            color: #fff;
+        }
+
+    .limited-height {
+        max-height: 300px;
+        width: auto; /* Maintain aspect ratio */
+    }
+</style>
+
+
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+            string authorz = "";
+            
+            
+                @foreach (var book in item.PublisherBooks)
+                {
+                @foreach (var authors in book.Book.BookAuthors)
+                {
+                    authorz = authors.Author.Name+",";
+                    
+                }
+                authorz = authorz.Remove(authorz.Length - 1);
+                <div class="col-md-4">
+                        <div class="card mb-4">
+                        <img class="card-img-top limited-height" src="@book.Book.ImageUrl" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    @Html.DisplayFor(modelItem => book.Book.Title)
+                                </h5>
+                                <p class="card-text">
+                                    <strong>Price:</strong> @Html.DisplayFor(modelItem => book.Book.Price) Ден
+                                </p>
+                                <p class="card-text">
+                                    <strong>Description:</strong> @Html.DisplayFor(modelItem => book.Book.Description)
+                                </p>
+                                <p class="card-text">
+                                    <strong>Authored by:</strong>
+
+                                @Html.DisplayFor(modelItem => authorz)
+                                    
+                                </p>
+                                <p class="card-text">
+                                    <strong>Published by:</strong>
+                                   
+                                        @Html.DisplayFor(modelItem => book.Publisher.Name)
+                                    
+                                </p>
+                                <div class="d-flex justify-content-center align-items-center">
+                                    <div class="btn-group" style="width: 100%;">
+                                        <a asp-action="Details" asp-route-id="@book.Book.Id" class="btn btn-sm btn-brown">Details</a>
+                                        <a asp-action="AddBookToCart" asp-route-id="@book.Book.Id" class="btn btn-sm btn-brown">Add to cart</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>

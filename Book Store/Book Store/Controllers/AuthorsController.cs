@@ -51,7 +51,8 @@ namespace Book_Store.Controllers
         // GET: Authors/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new Author(); 
+            return View(model);
         }
 
         // POST: Authors/Create
@@ -120,26 +121,7 @@ namespace Book_Store.Controllers
         }
 
         // GET: Authors/Delete/5
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var Author = AuthorService.GetAuthorById(id);
-            if (Author == null)
-            {
-                return NotFound();
-            }
-
-            return View(Author);
-        }
-
-        // POST: Authors/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
+        public IActionResult Delete(int id)
         {
             var Author = AuthorService.GetAuthorById(id);
             if (Author != null)
@@ -150,6 +132,9 @@ namespace Book_Store.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: Authors/Delete/5
+    
+
         private bool AuthorExists(int id)
         {
             if (AuthorService.GetAuthorById(id) != null)
@@ -158,9 +143,9 @@ namespace Book_Store.Controllers
             }
             return false;
         }
-
-        private IActionResult AddBook(int id)
-        {
+        [HttpGet]
+        public IActionResult AddBook(int id)
+        {   
             AuthorService.GetAuthorById(id);
             BookAuthorDTO AuthorBooks = new BookAuthorDTO();
             AuthorBooks.AuthorId = id;
@@ -169,7 +154,7 @@ namespace Book_Store.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult AddBook([Bind("Price,Title,Description,AuthorId")] BookAuthorDTO BookAuthor)
+        public IActionResult AddBook([Bind("Price,Title,Description,AuthorId,ImageUrl")] BookAuthorDTO BookAuthor)
         {
             Book book = new Book();
             if (ModelState.IsValid)
@@ -178,6 +163,7 @@ namespace Book_Store.Controllers
                 book.Title=BookAuthor.Title;
                 book.Description=BookAuthor.Description;
                 book.Price=BookAuthor.Price;
+                book.ImageUrl=BookAuthor.ImageUrl;
                 Book CreatedBook=  bookService.CreateNewBook(book);
                 Author author = AuthorService.GetAuthorById(BookAuthor.AuthorId);
                 BookAuthor bookAuthor = new BookAuthor
@@ -188,7 +174,7 @@ namespace Book_Store.Controllers
 
                 AuthorService.CreateBook(bookAuthor);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Details",new {id =bookAuthor.AuthorId });
             }
             return View(book);
         }
@@ -213,7 +199,7 @@ namespace Book_Store.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult EditBook(int id, [Bind("Price,Title,Description,Id")] Book book)
+        public IActionResult EditBook(int id, [Bind("Price,Title,Description,Id,ImageUrl")] Book book)
         {
             if (id != book.Id)
             {
@@ -234,36 +220,13 @@ namespace Book_Store.Controllers
             }
             return View(book);
         }
-        public IActionResult DeleteBook(int? id)
+        public IActionResult DeleteBook(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var book = bookService.GetBookById(id);
-            if (book == null)
-            {
-                return NotFound();
-            }
-
-            return View(book);
+            var Author = AuthorService.DeleteBook(id);
+            return RedirectToAction(nameof(Details), new { id = Author.Id });
         }
 
-        // POST: Books/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmedBook(int id)
-        {
-            var book = bookService.GetBookById(id);
-            if (book != null)
-            {
-                bookService.DeleteBook(id);
-            }
-
-       
-            return RedirectToAction(nameof(Index));
-        }
+     
     }
 
 }

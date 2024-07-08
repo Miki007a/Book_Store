@@ -1,0 +1,148 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model Book_Store.Models.DTO.AddAuthorBookToPublisherDTO
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+
+<style>
+    import url('http://fonts.googleapis.com/css?family=Open+Sans:200,300');
+
+body{
+    font-family: 'Open Sans',Arial,Helvetica,Sans-Serif;
+    background: none repeat scroll 0 0 #ebeeed ;
+       
+}
+.port-image{
+    width:400px;
+    height:400px;
+
+}
+
+.media {
+    background: none repeat scroll 0 0 #fff ;
+    background-color:rgba(255,255,255,0.8);
+    margin-bottom: 30px;
+  
+}
+
+.media a {
+    overflow: hidden;
+}
+
+.media-img {
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+}
+
+.media-img .img-overlay {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0.4);
+    height: 100%;
+    opacity: 0;
+    padding-top: 50%;
+    position: absolute;
+    text-align: center;
+    transition: opacity 0.3s ease-out 0s;
+    visibility: hidden;
+    width: 100%;
+    z-index: 4;
+}
+
+.media:hover .img-overlay a, .media .img-overlay:hover a {
+    display: inline-block;
+}
+
+.media:hover .img-overlay, .media .media-img:hover .img-overlay {
+    opacity: 1;
+    transition: opacity 0.3s ease-out 0s;
+    visibility: visible;
+}
+
+.media div.media-img img {
+    height: auto;
+    transform: scale(1, 1);
+    transition-duration: 2000ms;
+    transition-timing-function: ease-out;
+    width: 100%;
+}
+
+    .btn-brown {
+        background-color: #964B00;
+        border-color: #964B00;
+        color: #fff; /* Full width buttons */
+    }
+
+        .btn-brown:hover,
+        .btn-brown:focus,
+        .btn-brown:active {
+            background-color: #A56F00;
+            border-color: #A56F00;
+            color: #fff;
+        }
+
+    .limited-height {
+        max-height: 250px;
+        width: auto; /* Maintain aspect ratio */
+    }
+</style>
+
+
+@foreach (var item in Model.Authors)
+{
+    if (item.BookAuthors.Count > 0)
+    {
+        <div class="container px-4 md:px-6 bg-dark bg-gradient text-center text-white">
+            <div class="space-y-2">
+                <h2 class="text-3xl font-bold tracking-tighter md:text-4xl lg:text-5xl">Books written by @item.Name:</h2>
+                <p class="text-muted-foreground md:text-lg mb-0">Explore the captivating works of this renowned author.</p>
+            </div>
+    </div>
+    }
+        
+    
+    @foreach (var book in item.BookAuthors)
+    {
+        <div class="container bootstrap snippets bootdey">
+            <div class="row">
+                <div class="media">
+                    <div class="row">
+                        <div class="media-img col-sm-4 col-md-3 col-lg-3">
+                            
+                            <div class="img-overlay" >
+                                <a asp-action="Details" asp-controller="Books" asp-route-id="@book.Book.Id" style="margin-top:-60%" class="btn btn-primary">Details</a>
+                            </div>
+                            <img class="port-image limited-height" src="@book.Book.ImageUrl" />
+
+                        </div>
+                        <div class="col-sm-8 col-md-9 col-lg-9">
+                            <h3 class="h1 display-6">
+                                <strong>@book.Book.Title</strong>
+                            </h3>
+                           
+                            <h6 class="h6">
+                                <strong>Description:</strong> @book.Book.Description
+                            </h6>
+                            <h6 class="h6">
+                                <strong>Price:</strong> @book.Book.Price Ден
+                            </h6>
+                            <form asp-action="PublishBook">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" value="@book.Book.Id" name="BookId" />
+                                <input type="hidden" value="@Model.Publisher.Id" name="PublisherId" />
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-sm btn-brown" >Publish</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    }
+
+
+    

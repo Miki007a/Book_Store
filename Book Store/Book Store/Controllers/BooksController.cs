@@ -20,12 +20,15 @@ namespace Book_Store.Controllers
         private readonly IPublisherService publisherService;
         private readonly IBookService bookService;
         private readonly IOrderService orderService;
+        private readonly IShoppingCartService shoppingCartService;
 
-        public BooksController(IPublisherService publisherService, IBookService bookService,IOrderService orderService)
+        public BooksController(IPublisherService publisherService, IBookService bookService,IOrderService orderService,IShoppingCartService shoppingCartService)
         {
             this.publisherService = publisherService;
             this.bookService = bookService;
             this.orderService = orderService;
+
+            this.shoppingCartService = shoppingCartService;
         }  
 
       
@@ -51,51 +54,23 @@ namespace Book_Store.Controllers
             return View(book);
         }
 
-        public IActionResult Order(int? id)
+    
+        public IActionResult AddBookToCart(int Id)
         {
-            Book book = bookService.GetBookById(id);
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? null;
-            List<Order> orders = orderService.GetOrdersForUser(userId);
-       
-            BookInOrderDTO order = new BookInOrderDTO
-            {
-                Book = book,
-                BookId = book.Id,
-                Quantity = 0
-            };
-         
-
-            return View(order);
-
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Order([Bind("Quantity,BookId")] BookInOrderDTO bookInOrder)
-        {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier) ?? null;
-
-            bookService.AddBookInOrder(bookInOrder, userId);
-
-            return RedirectToAction("Index","Orders");
-
-        }
-        public IActionResult AddProductToCart(int Id)
-        {
-            var result = _shoppingCartService.getProductInfo(Id);
+            var result = shoppingCartService.getBookInfo(Id);
             if (result != null)
             {
                 return View(result);
             }
-            return View();
+            return View(result);
         }
 
         [HttpPost]
-        public IActionResult AddProductToCart(AddToCartDTO model)
+        public IActionResult AddBookToCart(AddToCartDTO model)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var result = _shoppingCartService.AddProductToShoppingCart(userId, model);
+            var result = shoppingCartService.AddBookToShoppingCart(userId, model);
 
             if (result != null)
             {
