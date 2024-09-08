@@ -13,105 +13,124 @@ using Newtonsoft.Json;
 using System.Text;
 using GemBox.Document;
 using ClosedXML.Excel;
+using Book_Store.Models.FoodDelivery;
 
 namespace Book_Store.Controllers
 {
     public class OrdersController : Controller
     {
-        private readonly IOrderService _orderService;
-
-        public OrdersController(IOrderService orderservice)
+        public OrdersController()
         {
-            _orderService = orderservice;
+           
             ComponentInfo.SetLicense("FREE-LIMITED-KEY");
 
         }
 
-        // GET: Orders
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var orders = _orderService.GetAllOrders();
-            return View(orders);
+            HttpClient client = new HttpClient();
+            string URL = "http://localhost:5196/api/Admin/GetAllOrders";
+
+            HttpResponseMessage response = client.GetAsync(URL).Result;
+            var data = response.Content.ReadAsAsync<List<Models.FoodDelivery.Order>>().Result;
+            return View(data);
         }
 
-        // GET: Orders/Details/5
-        public async Task<IActionResult> Details(int id)
+
+        public IActionResult Details(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            HttpClient client = new HttpClient();
 
-            var order = _orderService.GetDetailsForOrder(id);
-            if (order == null)
+            string URL = "http://localhost:5196/api/Admin/GetDetails";
+            var model = new
             {
-                return NotFound();
-            }
+                Id = id
+            };
 
-            return View(order);
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync(URL, content).Result;
+
+            var result = response.Content.ReadAsAsync<Models.FoodDelivery.Order>().Result;
+
+
+            return View(result);
+
         }
 
-        public FileContentResult CreateInvoice(int Id)
+        public FileContentResult CreateInvoice(string id)
         {
+            HttpClient client = new HttpClient();
 
+            string URL = "http://localhost:5196/api/Admin/GetDetails";
+            var model = new
+            {
+                Id = id
+            };
 
-            var data = _orderService.GetDetailsForOrder(Id);
+            HttpContent content = new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = client.PostAsync(URL, content).Result;
+
+            var result = response.Content.ReadAsAsync<Models.FoodDelivery.Order>().Result;
 
             var templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Invoice.docx");
             var document = DocumentModel.Load(templatePath);
-            document.Content.Replace("{{OrderNumber}}", data.Id.ToString());
-            document.Content.Replace("{{UserName}}", data.BookUser.UserName);
+
+            document.Content.Replace("{{OrderNumber}}", result.Id.ToString());
+            document.Content.Replace("{{UserName}}", result.Customer.FirstName);
+
             StringBuilder sb = new StringBuilder();
             var total = 0;
-            foreach (var item in data.BooksInOrders)
+            foreach (var item in result.ItemsInOrder)
             {
-                sb.Append("Book " + item.Book.Title + " with quantity " + item.Quantity + " with price " + item.Book.Price + "$, ");
-                total += (item.Quantity * item.Book.Price);
+                sb.AppendLine("Item " + item.Item.ItemName + " has quantity " + item.Quantity + " with price " + item.Item.Price);
+                total += (item.Quantity * item.Item.Price);
             }
-            var listproducts=sb.ToString().Remove(sb.Length - 2);
-            document.Content.Replace("{{BookList}}", listproducts);
+            document.Content.Replace("{{ItemList}}", sb.ToString());
             document.Content.Replace("{{TotalPrice}}", total.ToString() + "$");
 
             var stream = new MemoryStream();
             document.Save(stream, new PdfSaveOptions());
-            return File(stream.ToArray(), new PdfSaveOptions().ContentType, "ExportedInvoice.pdf");
+            return File(stream.ToArray(), new PdfSaveOptions().ContentType, "ExportInvoice.pdf");
 
         }
 
         [HttpGet]
         public FileContentResult ExportOrders()
         {
-            string fileName = "AllOrders.xlsx";
+            string fileName = "Orders.xlsx";
             string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
 
-            using (var workBook = new XLWorkbook())
+            using (var workbook = new XLWorkbook())
             {
-                IXLWorksheet worksheet = workBook.Worksheets.Add("Orders");
+                IXLWorksheet worksheet = workbook.Worksheets.Add("Orders");
+                worksheet.Cell(1, 1).Value = "OrderID";
+                worksheet.Cell(1, 2).Value = "Customer UserName";
+                worksheet.Cell(1, 3).Value = "Total Price";
+                HttpClient client = new HttpClient();
+                string URL = "http://localhost:5196/api/Admin/GetAllOrders";
 
-                worksheet.Cell(1, 1).Value = "Order ID";
-                worksheet.Cell(1, 2).Value = "Customer Username";
-
-               
-
-                var data = _orderService.GetAllOrders();
+                HttpResponseMessage response = client.GetAsync(URL).Result;
+                var data = response.Content.ReadAsAsync<List<Models.FoodDelivery.Order>>().Result;
 
                 for (int i = 0; i < data.Count(); i++)
                 {
-                    var order = data[i];
-                    worksheet.Cell(i + 2, 1).Value = order.Id.ToString();
-                    worksheet.Cell(i + 2, 2).Value = order.BookUser.UserName;
-
-                    for (int j = 0; j < order.BooksInOrders.Count(); j++)
+                    var item = data[i];
+                    worksheet.Cell(i + 2, 1).Value = item.Id.ToString();
+                    worksheet.Cell(i + 2, 2).Value = item.Customer.FirstName;
+                    var total = 0;
+                    for (int j = 0; j < item.ItemsInOrder.Count(); j++)
                     {
-                        worksheet.Cell(1, j + 3).Value = "Book - " + (j + 1);
-                        worksheet.Cell(i + 2, j + 3).Value = order.BooksInOrders.ElementAt(j).Book.Title;
-
+                        worksheet.Cell(1, 4 + j).Value = "Item - " + (j + 1);
+                        worksheet.Cell(i + 2, 4 + j).Value = item.ItemsInOrder.ElementAt(j).Item.ItemName;
+                        total += (item.ItemsInOrder.ElementAt(j).Quantity * item.ItemsInOrder.ElementAt(j).Item.Price);
                     }
+                    worksheet.Cell(i + 2, 3).Value = total;
                 }
-
                 using (var stream = new MemoryStream())
                 {
-                    workBook.SaveAs(stream);
+                    workbook.SaveAs(stream);
                     var content = stream.ToArray();
                     return File(content, contentType, fileName);
                 }

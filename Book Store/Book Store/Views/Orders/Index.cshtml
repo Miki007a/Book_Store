@@ -1,4 +1,4 @@
-﻿@model List<Book_Store.Models.Models.Order>
+﻿@model List<Book_Store.Models.FoodDelivery.Order>
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @{
     ViewData["Title"] = "Index";
@@ -32,7 +32,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Customer Name</th>
-                    <th scope="col">Number Of Books</th>
+                    <th scope="col">Number Of Items</th>
                     <th></th>
                     <th></th>
                 </tr>
@@ -52,8 +52,8 @@
 
                         <tr>
                             <th scope="row">@(i + 1)</th>
-                            <td>@item.BookUser.UserName</td>
-                            <td>@item.BooksInOrders.Count</td>
+                            <td>@item.Customer.FirstName</td>
+                            <td>@item.ItemsInOrder.Count()</td>
                             <td><a asp-action="Details" asp-route-Id="@item.Id" class="btn btn-brown">Details</a></td>
                             <td><a asp-action="CreateInvoice" asp-route-Id="@item.Id" class="btn btn-primary">Create Invoice</a></td>
                         </tr>

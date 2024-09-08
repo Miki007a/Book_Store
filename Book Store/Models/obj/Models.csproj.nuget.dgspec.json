@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj": {}
+    "E:\\Book_Store\\Book Store\\Models\\Models.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj": {
+    "E:\\Book_Store\\Book Store\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj",
+        "projectUniqueName": "E:\\Book_Store\\Book Store\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj",
+        "projectPath": "E:\\Book_Store\\Book Store\\Models\\Models.csproj",
         "packagesPath": "C:\\Users\\Dzamlii\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\obj\\",
+        "outputPath": "E:\\Book_Store\\Book Store\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dzamlii\\AppData\\Roaming\\NuGet\\NuGet.Config",

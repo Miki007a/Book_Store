@@ -4577,11 +4577,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj",
+      "projectUniqueName": "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj",
       "projectName": "Repository",
-      "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj",
+      "projectPath": "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj",
       "packagesPath": "C:\\Users\\Dzamlii\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\obj\\",
+      "outputPath": "E:\\Book_Store\\Book Store\\Repository\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Dzamlii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4599,8 +4599,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj": {
-              "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj"
+            "E:\\Book_Store\\Book Store\\Models\\Models.csproj": {
+              "projectPath": "E:\\Book_Store\\Book Store\\Models\\Models.csproj"
             }
           }
         }

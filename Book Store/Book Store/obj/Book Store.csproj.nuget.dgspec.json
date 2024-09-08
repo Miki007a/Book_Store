@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\Book Store.csproj": {}
+    "E:\\Book_Store\\Book Store\\Book Store\\Book Store.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\Book Store.csproj": {
+    "E:\\Book_Store\\Book Store\\Book Store\\Book Store.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\Book Store.csproj",
+        "projectUniqueName": "E:\\Book_Store\\Book Store\\Book Store\\Book Store.csproj",
         "projectName": "Book Store",
-        "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\Book Store.csproj",
+        "projectPath": "E:\\Book_Store\\Book Store\\Book Store\\Book Store.csproj",
         "packagesPath": "C:\\Users\\Dzamlii\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Book Store\\obj\\",
+        "outputPath": "E:\\Book_Store\\Book Store\\Book Store\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dzamlii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -29,11 +29,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj"
+              "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj": {
+                "projectPath": "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj"
               },
-              "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Service\\Service.csproj": {
-                "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Service\\Service.csproj"
+              "E:\\Book_Store\\Book Store\\Service\\Service.csproj": {
+                "projectPath": "E:\\Book_Store\\Book Store\\Service\\Service.csproj"
               }
             }
           }
@@ -64,6 +64,10 @@
             "GemBox.Document": {
               "target": "Package",
               "version": "[35.0.1784, )"
+            },
+            "Microsoft.AspNet.WebApi.Client": {
+              "target": "Package",
+              "version": "[6.0.0, )"
             },
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
@@ -125,14 +129,14 @@
         }
       }
     },
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj": {
+    "E:\\Book_Store\\Book Store\\Models\\Models.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj",
+        "projectUniqueName": "E:\\Book_Store\\Book Store\\Models\\Models.csproj",
         "projectName": "Models",
-        "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj",
+        "projectPath": "E:\\Book_Store\\Book Store\\Models\\Models.csproj",
         "packagesPath": "C:\\Users\\Dzamlii\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\obj\\",
+        "outputPath": "E:\\Book_Store\\Book Store\\Models\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dzamlii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -192,14 +196,14 @@
         }
       }
     },
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj": {
+    "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj",
+        "projectUniqueName": "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj",
+        "projectPath": "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj",
         "packagesPath": "C:\\Users\\Dzamlii\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\obj\\",
+        "outputPath": "E:\\Book_Store\\Book Store\\Repository\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dzamlii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -217,8 +221,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj": {
-                "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Models\\Models.csproj"
+              "E:\\Book_Store\\Book Store\\Models\\Models.csproj": {
+                "projectPath": "E:\\Book_Store\\Book Store\\Models\\Models.csproj"
               }
             }
           }
@@ -285,14 +289,14 @@
         }
       }
     },
-    "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Service\\Service.csproj": {
+    "E:\\Book_Store\\Book Store\\Service\\Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Service\\Service.csproj",
+        "projectUniqueName": "E:\\Book_Store\\Book Store\\Service\\Service.csproj",
         "projectName": "Service",
-        "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Service\\Service.csproj",
+        "projectPath": "E:\\Book_Store\\Book Store\\Service\\Service.csproj",
         "packagesPath": "C:\\Users\\Dzamlii\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Service\\obj\\",
+        "outputPath": "E:\\Book_Store\\Book Store\\Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dzamlii\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -310,8 +314,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj": {
-                "projectPath": "C:\\Users\\Dzamlii\\source\\repos\\Book store\\Repository\\Repository.csproj"
+              "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj": {
+                "projectPath": "E:\\Book_Store\\Book Store\\Repository\\Repository.csproj"
               }
             }
           }
